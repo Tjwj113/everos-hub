@@ -1,11 +1,12 @@
 // Scroll film: draws the video frame that matches the scroll position.
 (() => {
   // Phones get the vertical film; each film has its own length, background and step frames.
-  const vertical = window.matchMedia('(max-width: 699px)').matches;
-  const filme = vertical
-    ? { pasta: 'vertical', total: 240, fundo: '#F5F0E5', etapas: [48, 108, 184], ocultarTrilha: 226, seguir: 228 }
-    : { pasta: 'desktop', total: 437, fundo: '#F9F9F1', etapas: [58, 146, 290], ocultarTrilha: 368, seguir: 400 };
-  const TOTAL = filme.total;
+  const FILMES = {
+    vertical: { pasta: 'vertical', total: 240, fundo: '#F5F0E5', etapas: [48, 108, 184], ocultarTrilha: 226, seguir: 228 },
+    desktop: { pasta: 'desktop', total: 437, fundo: '#F9F9F1', etapas: [58, 146, 290], ocultarTrilha: 368, seguir: 400 },
+  };
+  const celular = window.matchMedia('(max-width: 699px)');
+
   const secao = document.querySelector('.filme');
   const tela = document.querySelector('.filme__tela');
   const ctx = tela.getContext('2d');
@@ -14,33 +15,46 @@
   const trilha = document.querySelector('.trilha');
   const seguir = document.querySelector('.filme__seguir');
 
-  const caminho = (i) => `frames/${filme.pasta}/frame_${String(i + 1).padStart(4, '0')}.webp`;
-
-  const quadros = new Array(TOTAL);
-  const prontos = new Uint8Array(TOTAL);
+  let vertical, filme, TOTAL, quadros, prontos, ordem, fila, geracao = 0;
   let atual = 0;
   let pedido = false;
 
-  // Load a sparse set first so scrubbing works early, then fill the gaps.
-  const ordem = [];
-  for (let passo of [32, 8, 2, 1]) {
-    for (let i = 0; i < TOTAL; i += passo) if (!ordem.includes(i)) ordem.push(i);
-  }
-  let fila = 0;
-  const carregarProximo = () => {
-    if (fila >= ordem.length) return;
+  const caminho = (i) => `frames/${filme.pasta}/frame_${String(i + 1).padStart(4, '0')}.webp`;
+
+  // Picks the film for the current width and starts loading it.
+  // Loads still running for the previous film are ignored through `geracao`.
+  const escolherFilme = () => {
+    vertical = celular.matches;
+    filme = vertical ? FILMES.vertical : FILMES.desktop;
+    TOTAL = filme.total;
+    quadros = new Array(TOTAL);
+    prontos = new Uint8Array(TOTAL);
+    atual = -1;
+    geracao++;
+
+    // Load a sparse set first so scrubbing works early, then fill the gaps.
+    ordem = [];
+    for (const passo of [32, 8, 2, 1]) {
+      for (let i = 0; i < TOTAL; i += passo) if (!ordem.includes(i)) ordem.push(i);
+    }
+    fila = 0;
+    for (let n = 0; n < 6; n++) carregarProximo(geracao);
+  };
+
+  const carregarProximo = (minha) => {
+    if (minha !== geracao || fila >= ordem.length) return;
     const i = ordem[fila++];
     const img = new Image();
     img.decoding = 'async';
     img.onload = () => {
+      if (minha !== geracao) return;
       quadros[i] = img; prontos[i] = 1;
       if (Math.abs(i - atual) < 40) agendar();
-      carregarProximo();
+      carregarProximo(minha);
     };
-    img.onerror = carregarProximo;
+    img.onerror = () => carregarProximo(minha);
     img.src = caminho(i);
   };
-  for (let n = 0; n < 6; n++) carregarProximo();
 
   const maisProximo = (i) => {
     for (let d = 0; d < TOTAL; d++) {
@@ -60,7 +74,7 @@
 
   const desenhar = () => {
     pedido = false;
-    const i = maisProximo(atual);
+    const i = maisProximo(Math.max(0, atual));
     if (i < 0) return;
     const img = quadros[i];
     const W = tela.width, H = tela.height;
@@ -86,11 +100,14 @@
     if (mostrado !== alvo) requestAnimationFrame(passo); else animando = false;
   };
 
-  const atualizar = () => {
+  const progresso = () => {
     const r = secao.getBoundingClientRect();
     const percurso = secao.offsetHeight - window.innerHeight;
-    const p = Math.min(1, Math.max(0, -r.top / percurso));
-    alvo = p * (TOTAL - 1);
+    return Math.min(1, Math.max(0, -r.top / percurso));
+  };
+
+  const atualizar = () => {
+    alvo = progresso() * (TOTAL - 1);
     if (!suave) { mostrado = alvo; mostrarQuadro(Math.round(alvo)); return; }
     if (!animando) { animando = true; requestAnimationFrame(passo); }
   };
@@ -110,8 +127,18 @@
     seguir.classList.toggle('visivel', quadro >= filme.seguir);
   };
 
+  // Crossing the phone width swaps the film and keeps the same point in the story.
+  celular.addEventListener('change', () => {
+    const p = progresso();
+    escolherFilme();
+    alvo = mostrado = p * (TOTAL - 1);
+    ajustarTela();
+    mostrarQuadro(Math.round(mostrado));
+  });
+
   window.addEventListener('scroll', atualizar, { passive: true });
   window.addEventListener('resize', () => { ajustarTela(); atualizar(); });
+  escolherFilme();
   ajustarTela();
   atualizar();
 })();
