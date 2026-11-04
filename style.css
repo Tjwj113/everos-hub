@@ -1,0 +1,261 @@
+/* Éveros Projetos — tokens */
+:root {
+  --papel: #F9F9F1;      /* same off-white as the video background */
+  --papel-2: #EFF2E4;
+  --floresta: #002E25;   /* logo dark green */
+  --limao: #B5F498;      /* logo light green */
+  --tinta: #13241E;
+  --salvia: #56695F;
+  --linha: rgba(0, 46, 37, 0.14);
+  --faisca: #F2C230;     /* the light bulb, used once */
+
+  --f-titulo: "Gloock", Georgia, serif;
+  --f-texto: "Hanken Grotesk", system-ui, sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --topo-h: 72px;
+  --raio: 14px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--papel);
+  color: var(--tinta);
+  font-family: var(--f-texto);
+  font-size: 17px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+img { display: block; max-width: 100%; height: auto; }
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--floresta); outline-offset: 3px; border-radius: 4px; }
+
+/* ---------- Header ---------- */
+.topo {
+  position: fixed; inset: 0 0 auto 0; z-index: 20;
+  height: var(--topo-h);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 clamp(20px, 4vw, 56px);
+  background: rgba(249, 249, 241, 0.86);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--linha);
+}
+.topo__logo img { height: 30px; width: auto; }
+.topo__nav { display: flex; align-items: center; gap: clamp(16px, 2.4vw, 32px); font-weight: 500; font-size: 15px; }
+.topo__nav a:not(.botao) { text-decoration: none; color: var(--salvia); }
+.topo__nav a:not(.botao):hover { color: var(--floresta); }
+
+.botao {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 13px 22px;
+  background: var(--floresta); color: var(--papel);
+  border-radius: 999px;
+  font-weight: 600; font-size: 15px; text-decoration: none;
+  transition: background .2s, color .2s, transform .2s;
+}
+.botao:hover { background: var(--limao); color: var(--floresta); }
+.botao--pequeno { padding: 9px 16px; font-size: 14px; }
+.botao--grande { padding: 18px 32px; font-size: 17px; }
+
+.rotulo, .legenda__rotulo, .projeto__tipo {
+  font-family: var(--f-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--salvia); margin: 0;
+}
+
+/* ---------- Scroll film ---------- */
+/* Scroll length controls the film speed: taller = slower */
+.filme { position: relative; height: 1100vh; }
+.filme__palco {
+  position: sticky; top: 0;
+  height: 100vh; height: 100svh;
+  overflow: hidden;
+}
+.filme__tela {
+  position: absolute; left: 0; top: var(--topo-h);
+  width: 100%; height: calc(100% - var(--topo-h));
+}
+
+/* Process rail: four real steps in order */
+.trilha {
+  position: absolute; z-index: 3;
+  top: calc(var(--topo-h) + 24px); right: clamp(20px, 4vw, 56px);
+  display: flex; gap: 6px; list-style: none; margin: 0; padding: 6px;
+  background: rgba(249, 249, 241, 0.9); border: 1px solid var(--linha); border-radius: 999px;
+  font-family: var(--f-mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase;
+  transition: opacity .4s;
+}
+.trilha li { padding: 6px 12px; border-radius: 999px; color: var(--salvia); transition: background .3s, color .3s; }
+.trilha li.ativa { background: var(--floresta); color: var(--limao); }
+.trilha li[data-etapa="0"].ativa { background: var(--faisca); color: var(--floresta); }
+.trilha.oculta { opacity: 0; }
+
+.legenda {
+  position: absolute; z-index: 4;
+  bottom: clamp(24px, 6vh, 64px);
+  width: min(380px, 34vw);
+  padding: 24px 26px 26px;
+  background: rgba(249, 249, 241, 0.94);
+  border: 1px solid var(--linha);
+  border-left: 4px solid var(--limao);
+  border-radius: var(--raio);
+  box-shadow: 0 18px 40px -24px rgba(0, 46, 37, 0.45);
+  opacity: 0; transform: translateY(18px);
+  transition: opacity .45s ease, transform .45s ease;
+  pointer-events: none;
+}
+.legenda.visivel { opacity: 1; transform: none; }
+.legenda--esquerda, .legenda--abertura { left: clamp(20px, 4vw, 56px); }
+.legenda--direita { right: clamp(20px, 4vw, 56px); }
+.legenda--abertura { width: min(460px, 40vw); border-left-color: var(--faisca); }
+
+.legenda__titulo {
+  font-family: var(--f-titulo); font-weight: 400;
+  font-size: clamp(26px, 2.5vw, 36px); line-height: 1.08; letter-spacing: -.01em;
+  color: var(--floresta); margin: 10px 0 10px;
+}
+.legenda--abertura .legenda__titulo { font-size: clamp(32px, 3.4vw, 50px); }
+.legenda__texto { margin: 0; color: var(--salvia); font-size: 16px; }
+
+.filme__seguir {
+  position: absolute; z-index: 4; left: 50%; bottom: 28px; transform: translateX(-50%);
+  font-family: var(--f-mono); font-size: 13px; text-decoration: none;
+  padding: 10px 18px; border-radius: 999px; background: var(--floresta); color: var(--limao);
+  opacity: 0; pointer-events: none; transition: opacity .4s;
+}
+.filme__seguir.visivel { opacity: 1; pointer-events: auto; }
+
+/* ---------- Projects hub ---------- */
+.projetos {
+  padding: clamp(80px, 12vw, 150px) clamp(20px, 4vw, 56px) clamp(60px, 8vw, 110px);
+  max-width: 1320px; margin: 0 auto;
+}
+.projetos__cabeca { max-width: 720px; margin-bottom: clamp(40px, 6vw, 72px); }
+.projetos__titulo {
+  font-family: var(--f-titulo); font-weight: 400;
+  font-size: clamp(42px, 6vw, 84px); line-height: 1; letter-spacing: -.02em;
+  color: var(--floresta); margin: 14px 0 18px;
+}
+.projetos__intro { font-size: 19px; color: var(--salvia); margin: 0; }
+
+/* Browser window frame, echoing the floating windows in the film */
+.janela {
+  display: block; text-decoration: none;
+  border-radius: var(--raio); overflow: hidden;
+  background: #fff; border: 1px solid var(--linha);
+  box-shadow: 0 24px 50px -30px rgba(0, 46, 37, 0.5);
+  transition: transform .35s ease, box-shadow .35s ease;
+}
+.janela__barra {
+  display: flex; align-items: center; gap: 6px;
+  height: 34px; padding: 0 14px; background: var(--floresta);
+}
+.janela__barra i { width: 9px; height: 9px; border-radius: 50%; background: rgba(181, 244, 152, .45); }
+.janela__barra i:first-child { background: var(--limao); }
+.janela__url {
+  margin-left: 10px; padding: 3px 12px; border-radius: 999px;
+  background: rgba(249, 249, 241, .1); color: rgba(249, 249, 241, .8);
+  font-family: var(--f-mono); font-size: 11.5px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0;
+}
+.janela img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; }
+.janela:hover { transform: translateY(-6px); box-shadow: 0 34px 60px -30px rgba(0, 46, 37, 0.6); }
+
+.projeto__nome {
+  font-family: var(--f-titulo); font-weight: 400; color: var(--floresta);
+  font-size: 28px; line-height: 1.1; margin: 8px 0 8px;
+}
+.projeto__texto { margin: 0 0 14px; color: var(--salvia); }
+.projeto__link {
+  font-weight: 600; color: var(--floresta); text-decoration: none;
+  border-bottom: 2px solid var(--limao); padding-bottom: 2px;
+}
+.projeto__link:hover { background: var(--limao); }
+
+.projeto--destaque {
+  display: grid; grid-template-columns: 1.35fr 1fr; gap: clamp(28px, 4vw, 64px); align-items: center;
+  padding: clamp(20px, 3vw, 40px);
+  background: var(--papel-2); border-radius: calc(var(--raio) + 10px);
+  margin-bottom: clamp(48px, 6vw, 80px);
+}
+.projeto--destaque .projeto__nome { font-size: clamp(34px, 3.6vw, 52px); }
+.projeto--destaque .projeto__texto { font-size: 18px; color: var(--tinta); }
+.projeto__lista { list-style: none; padding: 0; margin: 0 0 26px; }
+.projeto__lista li { padding: 10px 0 10px 26px; border-top: 1px solid var(--linha); position: relative; }
+.projeto__lista li::before {
+  content: ""; position: absolute; left: 2px; top: 18px;
+  width: 10px; height: 10px; border-radius: 3px; background: var(--limao); border: 1px solid var(--floresta);
+}
+
+.projetos__grade {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+  gap: clamp(36px, 4vw, 56px) clamp(24px, 3vw, 40px);
+}
+.projetos__grade .janela { margin-bottom: 20px; }
+
+/* ---------- Contact + footer ---------- */
+.contato {
+  margin: 0 clamp(12px, 2vw, 24px);
+  padding: clamp(70px, 10vw, 130px) 24px;
+  background: var(--floresta); color: var(--papel);
+  border-radius: calc(var(--raio) + 14px);
+  text-align: center;
+}
+.contato__marca { margin: 0 auto 22px; width: 56px; }
+.contato__titulo {
+  font-family: var(--f-titulo); font-weight: 400;
+  font-size: clamp(36px, 5vw, 68px); line-height: 1.04; margin: 0 auto 16px; max-width: 14ch;
+}
+.contato__texto { color: rgba(249, 249, 241, .72); font-size: 19px; margin: 0 0 34px; }
+.contato .botao { background: var(--limao); color: var(--floresta); }
+.contato .botao:hover { background: var(--papel); }
+
+.rodape {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px;
+  padding: 40px clamp(20px, 4vw, 56px);
+  color: var(--salvia); font-size: 14px;
+}
+.rodape img { height: 26px; width: auto; }
+.rodape p { margin: 0; }
+
+/* ---------- Tablet / mobile ---------- */
+@media (max-width: 900px) {
+  .projeto--destaque { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 699px) {
+  :root { --topo-h: 60px; }
+  body { font-size: 16px; }
+  .topo__logo img { height: 24px; }
+  .topo__nav a:not(.botao) { display: none; }
+
+  .filme { height: 950vh; }
+  /* Video on top, caption below it */
+  .filme__tela { height: 56.25vw; }
+  .trilha {
+    top: calc(var(--topo-h) + 56.25vw + 14px); left: 16px; right: 16px;
+    justify-content: space-between; font-size: 10px;
+  }
+  .trilha li { padding: 5px 8px; }
+  .topo__nav .botao { white-space: nowrap; }
+  .legenda, .legenda--abertura {
+    left: 16px; right: 16px; width: auto;
+    top: calc(var(--topo-h) + 56.25vw + 70px); bottom: auto;
+    box-shadow: none;
+  }
+  .legenda__titulo, .legenda--abertura .legenda__titulo { font-size: 28px; }
+  .projetos__grade { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (max-width: 380px) {
+  .trilha { gap: 2px; padding: 4px; font-size: 9px; letter-spacing: .02em; }
+  .trilha li { padding: 4px 6px; }
+  .topo__nav .botao { padding: 8px 12px; font-size: 13px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .legenda, .janela, .trilha, .filme__seguir { transition: none; }
+  .janela:hover { transform: none; }
+}

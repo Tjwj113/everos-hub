@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Éveros Projetos · Transformando boas ideias em grandes negócios</title>
+  <meta name="description" content="A Éveros transforma ideias em sites, sistemas e plataformas. Conheça como trabalhamos e os projetos que já estão no ar.">
+  <link rel="icon" type="image/png" href="img/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gloock&family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="frames/desktop/frame_0001.webp" media="(min-width: 700px)">
+  <link rel="preload" as="image" href="frames/mobile/frame_0001.webp" media="(max-width: 699px)">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="topo">
+    <a href="#inicio" class="topo__logo" aria-label="Éveros Projetos, voltar ao início">
+      <img src="img/logo-everos.png" alt="Éveros" width="1194" height="268">
+    </a>
+    <nav class="topo__nav" aria-label="Principal">
+      <a href="#como-funciona">Como funciona</a>
+      <a href="#projetos">Projetos</a>
+      <a href="#contato" class="botao botao--pequeno">Fale com a Éveros</a>
+    </nav>
+  </header>
+
+  <main id="inicio">
+
+    <!-- Scroll film: the video advances as the page scrolls -->
+    <section class="filme" id="como-funciona" aria-label="Como a Éveros transforma uma ideia em solução">
+      <div class="filme__palco">
+        <canvas class="filme__tela" aria-hidden="true"></canvas>
+
+        <ol class="trilha" aria-hidden="true">
+          <li data-etapa="0">Ideia</li>
+          <li data-etapa="1">Entendimento</li>
+          <li data-etapa="2">Solução</li>
+          <li data-etapa="3">Entrega</li>
+        </ol>
+
+        <div class="legendas">
+          <article class="legenda legenda--abertura" data-de="0" data-ate="50">
+            <p class="legenda__rotulo">Éveros Projetos</p>
+            <h1 class="legenda__titulo">Toda boa solução começa com uma ideia.</h1>
+            <p class="legenda__texto">Role a página e veja o caminho que ela faz até virar um negócio.</p>
+          </article>
+
+          <article class="legenda legenda--esquerda" data-de="58" data-ate="138" data-etapa="1">
+            <p class="legenda__rotulo">Entendendo seu negócio</p>
+            <h2 class="legenda__titulo">Primeiro a gente escuta.</h2>
+            <p class="legenda__texto">Quem é o seu cliente, o que trava a sua rotina e onde está a oportunidade. Só depois disso a primeira linha de código é escrita.</p>
+          </article>
+
+          <article class="legenda legenda--direita" data-de="146" data-ate="282" data-etapa="2">
+            <p class="legenda__rotulo">A sua ideia vira solução</p>
+            <h2 class="legenda__titulo">Design e código no mesmo time.</h2>
+            <p class="legenda__texto">Transformamos o que foi conversado em telas, regras e sistema. Você acompanha cada etapa, sem precisar entender de programação.</p>
+          </article>
+
+          <article class="legenda legenda--esquerda" data-de="290" data-ate="362" data-etapa="3">
+            <p class="legenda__rotulo">Pronto para usar</p>
+            <h2 class="legenda__titulo">No ar, funcionando e seu.</h2>
+            <p class="legenda__texto">Site, sistema ou aplicativo publicado, com a gente por perto depois da entrega.</p>
+          </article>
+        </div>
+
+        <a href="#projetos" class="filme__seguir">Ver projetos da Éveros <span aria-hidden="true">↓</span></a>
+      </div>
+    </section>
+
+    <!-- Hub / portfolio -->
+    <section class="projetos" id="projetos" aria-labelledby="projetos-titulo">
+      <div class="projetos__cabeca">
+        <p class="rotulo">Projetos Éveros</p>
+        <h2 id="projetos-titulo" class="projetos__titulo">Ideias que já viraram negócio.</h2>
+        <p class="projetos__intro">Todos estes projetos estão no ar e em uso. Visite, use ou peça um parecido para o seu negócio.</p>
+      </div>
+
+      <article class="projeto projeto--destaque">
+        <a class="janela" href="https://everos.com.br" target="_blank" rel="noopener">
+          <span class="janela__barra"><i></i><i></i><i></i><span class="janela__url">everos.com.br</span></span>
+          <img src="img/projetos/everos.webp" alt="Página inicial da Éveros Legado Digital" width="960" height="600" loading="lazy">
+        </a>
+        <div class="projeto__info">
+          <p class="projeto__tipo">Projeto principal · Plataforma</p>
+          <h3 class="projeto__nome">Éveros Legado Digital</h3>
+          <p class="projeto__texto">A pessoa escreve mensagens, memórias e orientações enquanto está aqui. Depois que ela partir, a Éveros entrega tudo aos entes queridos nas datas e nos momentos que ela escolheu: um aniversário, o Natal, o casamento de um filho.</p>
+          <ul class="projeto__lista">
+            <li>Mensagens programadas por até 50 anos</li>
+            <li>Memorial digital com QR Code</li>
+            <li>Um guardião de confiança e sigilo até a entrega</li>
+          </ul>
+          <a class="botao" href="https://everos.com.br" target="_blank" rel="noopener">Visitar everos.com.br <span aria-hidden="true">↗</span></a>
+        </div>
+      </article>
+
+      <div class="projetos__grade">
+        <article class="projeto">
+          <a class="janela" href="https://psitatianenonato.com" target="_blank" rel="noopener">
+            <span class="janela__barra"><i></i><i></i><i></i><span class="janela__url">psitatianenonato.com</span></span>
+            <img src="img/projetos/psicologa.webp" alt="Site da psicóloga Tatiane Nonato" width="960" height="600" loading="lazy">
+          </a>
+          <p class="projeto__tipo">Site + agendamento</p>
+          <h3 class="projeto__nome">Tatiane Nonato, psicóloga</h3>
+          <p class="projeto__texto">O paciente conhece o trabalho da psicóloga, escolhe um horário e agenda a consulta on-line pelo próprio site.</p>
+          <a class="projeto__link" href="https://psitatianenonato.com" target="_blank" rel="noopener">Visitar site <span aria-hidden="true">↗</span></a>
+        </article>
+
+        <article class="projeto">
+          <a class="janela" href="https://cotaferias.com" target="_blank" rel="noopener">
+            <span class="janela__barra"><i></i><i></i><i></i><span class="janela__url">cotaferias.com</span></span>
+            <img src="img/projetos/cotaferias.webp" alt="Página inicial do Cota Férias" width="960" height="600" loading="lazy">
+          </a>
+          <p class="projeto__tipo">Marketplace</p>
+          <h3 class="projeto__nome">Cota Férias</h3>
+          <p class="projeto__texto">Quem tem cota de multipropriedade anuncia a sua semana para alugar ou trocar. Quem quer viajar encontra férias em resorts e negocia direto com o proprietário.</p>
+          <a class="projeto__link" href="https://cotaferias.com" target="_blank" rel="noopener">Visitar site <span aria-hidden="true">↗</span></a>
+        </article>
+
+        <article class="projeto">
+          <a class="janela" href="https://agente.cotaferias.com" target="_blank" rel="noopener">
+            <span class="janela__barra"><i></i><i></i><i></i><span class="janela__url">agente.cotaferias.com</span></span>
+            <img src="img/projetos/agente.webp" alt="Página do Agente Cota Férias" width="960" height="600" loading="lazy">
+          </a>
+          <p class="projeto__tipo">Agente de viagens</p>
+          <h3 class="projeto__nome">Agente Cota Férias</h3>
+          <p class="projeto__texto">O viajante informa destinos, datas e preferências, e o agente acompanha oportunidades de voos, hospedagens e pacotes para viajar gastando menos.</p>
+          <a class="projeto__link" href="https://agente.cotaferias.com" target="_blank" rel="noopener">Visitar site <span aria-hidden="true">↗</span></a>
+        </article>
+
+        <article class="projeto">
+          <a class="janela" href="https://prototipos.everosprojetos.com/aquabeat" target="_blank" rel="noopener">
+            <span class="janela__barra"><i></i><i></i><i></i><span class="janela__url">everosprojetos.com/aquabeat</span></span>
+            <img src="img/projetos/aquabeat.webp" alt="Página de vendas da cota Aquabeat" width="960" height="600" loading="lazy">
+          </a>
+          <p class="projeto__tipo">Página de vendas</p>
+          <h3 class="projeto__nome">AquaBeat</h3>
+          <p class="projeto__texto">Página para vender uma cota do parque aquático Aquabeat, com preço, benefícios e compra direto pelo WhatsApp.</p>
+          <a class="projeto__link" href="https://prototipos.everosprojetos.com/aquabeat" target="_blank" rel="noopener">Visitar site <span aria-hidden="true">↗</span></a>
+        </article>
+
+        <article class="projeto">
+          <a class="janela" href="https://ranchodusbao.com" target="_blank" rel="noopener">
+            <span class="janela__barra"><i></i><i></i><i></i><span class="janela__url">ranchodusbao.com</span></span>
+            <img src="img/projetos/rancho.webp" alt="Site do Rancho Dusbão" width="960" height="600" loading="lazy">
+          </a>
+          <p class="projeto__tipo">Site de aluguel</p>
+          <h3 class="projeto__nome">Rancho Dusbão</h3>
+          <p class="projeto__texto">Um rancho em Pitangui (MG) para fins de semana em grupo. O site mostra a estrutura e leva direto à consulta de datas e valores.</p>
+          <a class="projeto__link" href="https://ranchodusbao.com" target="_blank" rel="noopener">Visitar site <span aria-hidden="true">↗</span></a>
+        </article>
+      </div>
+    </section>
+
+    <section class="contato" id="contato" aria-labelledby="contato-titulo">
+      <img class="contato__marca" src="img/favicon.png" alt="" width="64" height="64">
+      <h2 id="contato-titulo" class="contato__titulo">Tem uma ideia? Conte para a gente.</h2>
+      <p class="contato__texto">A primeira conversa serve para entender o seu negócio. Sem compromisso.</p>
+      <!-- TODO: replace with the real Éveros WhatsApp or email -->
+      <a class="botao botao--grande" href="#contato">Falar com a Éveros</a>
+    </section>
+  </main>
+
+  <footer class="rodape">
+    <img src="img/logo-everos.png" alt="Éveros" width="1194" height="268">
+    <p>Transformando boas ideias em grandes negócios.</p>
+    <p class="rodape__copy">© 2026 Éveros Projetos</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
