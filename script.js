@@ -175,3 +175,28 @@
   ajustarTela();
   atualizar();
 })();
+
+// Phone menu: the hamburger opens the nav as a side panel.
+(() => {
+  const topo = document.querySelector('.topo');
+  const botao = document.querySelector('.topo__menu');
+  const fundo = document.querySelector('.topo__fundo');
+  const celular = window.matchMedia('(max-width: 699px)');
+
+  const abrir = (sim) => {
+    topo.classList.toggle('aberto', sim);
+    botao.setAttribute('aria-expanded', String(sim));
+    botao.setAttribute('aria-label', sim ? 'Fechar menu' : 'Abrir menu');
+  };
+
+  botao.addEventListener('click', () => abrir(!topo.classList.contains('aberto')));
+  fundo.addEventListener('click', () => abrir(false));
+  document.querySelectorAll('.topo__nav a').forEach((a) => a.addEventListener('click', () => abrir(false)));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && topo.classList.contains('aberto')) { abrir(false); botao.focus(); }
+  });
+  // Growing past phone width closes the panel so the desktop nav shows normally.
+  const aoMudar = () => { if (!celular.matches) abrir(false); };
+  if (celular.addEventListener) celular.addEventListener('change', aoMudar);
+  else if (celular.addListener) celular.addListener(aoMudar);
+})();

@@ -13,7 +13,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Gloock&family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="preload" as="image" href="frames/desktop/frame_0001.webp" media="(min-width: 700px)">
   <link rel="preload" as="image" href="frames/vertical/frame_0001.webp" media="(max-width: 699px)">
-  <link rel="stylesheet" href="style.css?v=6">
+  <link rel="stylesheet" href="style.css?v=7">
 </head>
 <body>
 
@@ -21,11 +21,16 @@
     <a href="#inicio" class="topo__logo" aria-label="Éveros Projetos, voltar ao início">
       <img src="img/logo-everos.png" alt="Éveros" width="1194" height="268">
     </a>
-    <nav class="topo__nav" aria-label="Principal">
+    <button class="topo__menu" type="button" aria-expanded="false" aria-controls="menu-principal" aria-label="Abrir menu">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="topo__nav" id="menu-principal" aria-label="Principal">
       <a href="#como-funciona">Como funciona</a>
       <a href="#projetos">Projetos</a>
+      <a href="#quem-somos">Quem somos</a>
       <a href="#contato" class="botao botao--pequeno">Fale com a Éveros</a>
     </nav>
+    <div class="topo__fundo" aria-hidden="true"></div>
   </header>
 
   <main id="inicio">
@@ -156,6 +161,20 @@
       </div>
     </section>
 
+    <section class="quem" id="quem-somos" aria-labelledby="quem-titulo">
+      <div class="quem__texto">
+        <p class="rotulo">Quem somos</p>
+        <h2 id="quem-titulo" class="quem__titulo">A gente constrói a sua ideia do começo ao fim.</h2>
+        <p>A Éveros Projetos cria sites, sistemas e plataformas para quem tem uma boa ideia e precisa de alguém que a coloque de pé. Entendemos o negócio, desenhamos as telas, programamos e publicamos.</p>
+        <p>E não sumimos depois da entrega: seguimos por perto para ajustar e melhorar o projeto enquanto ele cresce.</p>
+      </div>
+      <ul class="quem__lista">
+        <li><strong>Um time só</strong>Design e código juntos, da primeira conversa até o site no ar.</li>
+        <li><strong>Sem tecniquês</strong>Você acompanha cada etapa sem precisar entender de programação.</li>
+        <li><strong>Projetos em uso</strong>Plataforma, marketplace, agendamento on-line e páginas de vendas, todos no ar.</li>
+      </ul>
+    </section>
+
     <section class="contato" id="contato" aria-labelledby="contato-titulo">
       <img class="contato__marca" src="img/favicon.png?v=2" alt="" width="64" height="64">
       <h2 id="contato-titulo" class="contato__titulo">Tem uma ideia? Conte para a gente.</h2>
@@ -171,6 +190,6 @@
     <p class="rodape__copy">© 2026 Éveros Projetos</p>
   </footer>
 
-  <script src="script.js?v=6"></script>
+  <script src="script.js?v=7"></script>
 </body>
 </html>
