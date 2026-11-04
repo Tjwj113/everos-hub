@@ -231,20 +231,25 @@ a { color: inherit; }
   .topo__nav a:not(.botao) { display: none; }
 
   .filme { height: 950vh; }
-  /* Video on top, caption below it */
-  .filme__tela { height: 56.25vw; }
+  /* Vertical film fills the screen; captions use the empty sky above the characters */
+  .filme__palco { background: #F5F0E5; }
   .trilha {
-    top: calc(var(--topo-h) + 56.25vw + 14px); left: 16px; right: 16px;
+    top: auto; bottom: 16px; left: 16px; right: 16px;
     justify-content: space-between; font-size: 10px;
   }
   .trilha li { padding: 5px 8px; }
   .topo__nav .botao { white-space: nowrap; }
   .legenda, .legenda--abertura {
     left: 16px; right: 16px; width: auto;
-    top: calc(var(--topo-h) + 56.25vw + 70px); bottom: auto;
+    top: calc(var(--topo-h) + 12px); bottom: auto;
+    padding: 14px 16px 16px;
     box-shadow: none;
   }
-  .legenda__titulo, .legenda--abertura .legenda__titulo { font-size: 28px; }
+  .legenda__titulo, .legenda--abertura .legenda__titulo { font-size: 24px; margin: 6px 0 0; }
+  /* Keep captions short so they never cover the bulb, the code or the website */
+  .legenda__texto { display: none; }
+  .legenda--abertura .legenda__texto { display: block; font-size: 15px; margin-top: 6px; }
+  .filme__seguir { bottom: 20px; white-space: nowrap; }
   .projetos__grade { grid-template-columns: minmax(0, 1fr); }
 }
 

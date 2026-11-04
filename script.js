@@ -1,6 +1,11 @@
 // Scroll film: draws the video frame that matches the scroll position.
 (() => {
-  const TOTAL = 437;
+  // Phones get the vertical film; each film has its own length, background and step frames.
+  const vertical = window.matchMedia('(max-width: 699px)').matches;
+  const filme = vertical
+    ? { pasta: 'vertical', total: 240, fundo: '#F5F0E5', etapas: [48, 108, 184], ocultarTrilha: 226, seguir: 228 }
+    : { pasta: 'desktop', total: 437, fundo: '#F9F9F1', etapas: [58, 146, 290], ocultarTrilha: 368, seguir: 400 };
+  const TOTAL = filme.total;
   const secao = document.querySelector('.filme');
   const tela = document.querySelector('.filme__tela');
   const ctx = tela.getContext('2d');
@@ -9,8 +14,7 @@
   const trilha = document.querySelector('.trilha');
   const seguir = document.querySelector('.filme__seguir');
 
-  const pasta = window.matchMedia('(max-width: 699px)').matches ? 'mobile' : 'desktop';
-  const caminho = (i) => `frames/${pasta}/frame_${String(i + 1).padStart(4, '0')}.webp`;
+  const caminho = (i) => `frames/${filme.pasta}/frame_${String(i + 1).padStart(4, '0')}.webp`;
 
   const quadros = new Array(TOTAL);
   const prontos = new Uint8Array(TOTAL);
@@ -63,9 +67,11 @@
     // "contain" so nothing in the scene is cropped
     const escala = Math.min(W / img.naturalWidth, H / img.naturalHeight);
     const w = img.naturalWidth * escala, h = img.naturalHeight * escala;
-    ctx.fillStyle = '#F9F9F1';
+    ctx.fillStyle = filme.fundo;
     ctx.fillRect(0, 0, W, H);
-    ctx.drawImage(img, (W - w) / 2, (H - h) / 2, w, h);
+    // The vertical film sits on the bottom edge, so the spare space stays on top for the captions.
+    const y = vertical ? H - h : (H - h) / 2;
+    ctx.drawImage(img, (W - w) / 2, y, w, h);
   };
   const agendar = () => { if (!pedido) { pedido = true; requestAnimationFrame(desenhar); } };
 
@@ -93,15 +99,15 @@
     if (quadro !== atual) { atual = quadro; agendar(); }
 
     legendas.forEach((el) => {
-      const de = +el.dataset.de, ate = +el.dataset.ate;
+      const de = +(vertical ? el.dataset.mDe : el.dataset.de);
+      const ate = +(vertical ? el.dataset.mAte : el.dataset.ate);
       el.classList.toggle('visivel', quadro >= de && quadro <= ate);
     });
 
-    let etapa = 0;
-    if (quadro >= 290) etapa = 3; else if (quadro >= 146) etapa = 2; else if (quadro >= 58) etapa = 1;
+    const etapa = filme.etapas.filter((inicio) => quadro >= inicio).length;
     etapas.forEach((li, n) => li.classList.toggle('ativa', n === etapa));
-    trilha.classList.toggle('oculta', quadro >= 368);
-    seguir.classList.toggle('visivel', quadro >= 400);
+    trilha.classList.toggle('oculta', quadro >= filme.ocultarTrilha);
+    seguir.classList.toggle('visivel', quadro >= filme.seguir);
   };
 
   window.addEventListener('scroll', atualizar, { passive: true });
