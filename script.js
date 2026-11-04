@@ -17,6 +17,8 @@
 
   let vertical, filme, TOTAL, quadros, prontos, ordem, fila, geracao = 0;
   let atual = 0;
+  let posicao = -1;
+  let velocidade = 0;
   let pedido = false;
 
   const caminho = (i) => `frames/${filme.pasta}/frame_${String(i + 1).padStart(4, '0')}.webp`;
@@ -30,6 +32,7 @@
     quadros = new Array(TOTAL);
     prontos = new Uint8Array(TOTAL);
     atual = -1;
+    posicao = -1;
     geracao++;
 
     // Load a sparse set first so scrubbing works early, then fill the gaps.
@@ -72,32 +75,51 @@
     agendar();
   };
 
-  const desenhar = () => {
-    pedido = false;
-    const i = maisProximo(Math.max(0, atual));
-    if (i < 0) return;
-    const img = quadros[i];
+  const desenharImagem = (img) => {
     const W = tela.width, H = tela.height;
     // "contain" so nothing in the scene is cropped
     const escala = Math.min(W / img.naturalWidth, H / img.naturalHeight);
     const w = img.naturalWidth * escala, h = img.naturalHeight * escala;
-    ctx.fillStyle = filme.fundo;
-    ctx.fillRect(0, 0, W, H);
     // The vertical film sits on the bottom edge, so the spare space stays on top for the captions.
     const y = vertical ? H - h : (H - h) / 2;
     ctx.drawImage(img, (W - w) / 2, y, w, h);
+  };
+
+  // Between two frames, the next one fades in over the current one, so slow scrolling
+  // moves smoothly instead of stepping from frame to frame. When scrolling fast the film
+  // already changes frame on every refresh, so it draws one frame and skips the extra work.
+  const desenhar = () => {
+    pedido = false;
+    const rapido = velocidade > 0.5;
+    const base = rapido ? Math.round(Math.max(0, posicao)) : Math.floor(Math.max(0, posicao));
+    const i = maisProximo(base);
+    if (i < 0) return;
+    ctx.globalAlpha = 1;
+    ctx.fillStyle = filme.fundo;
+    ctx.fillRect(0, 0, tela.width, tela.height);
+    desenharImagem(quadros[i]);
+    const mistura = posicao - base;
+    if (!rapido && i === base && mistura > 0.02 && base + 1 < TOTAL && prontos[base + 1]) {
+      ctx.globalAlpha = mistura;
+      desenharImagem(quadros[base + 1]);
+      ctx.globalAlpha = 1;
+    }
   };
   const agendar = () => { if (!pedido) { pedido = true; requestAnimationFrame(desenhar); } };
 
   // The shown frame eases toward the scroll target, so the film glides instead of jumping.
   const suave = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let alvo = 0, mostrado = 0, animando = false;
+  let alvo = 0, mostrado = 0, animando = false, ultimo = 0;
 
-  const passo = () => {
+  // The easing is measured in time, not in screen refreshes, so it feels the same
+  // on 60 Hz and 120 Hz screens (12% of the gap per 1/60 s).
+  const passo = (agora) => {
+    const dt = ultimo ? Math.min(64, agora - ultimo) : 16.7;
+    ultimo = agora;
     const dif = alvo - mostrado;
-    mostrado = Math.abs(dif) < 0.5 ? alvo : mostrado + dif * 0.12;
-    mostrarQuadro(Math.round(mostrado));
-    if (mostrado !== alvo) requestAnimationFrame(passo); else animando = false;
+    mostrado = Math.abs(dif) < 0.01 ? alvo : mostrado + dif * (1 - Math.pow(0.88, dt / 16.7));
+    mostrarQuadro(mostrado);
+    if (mostrado !== alvo) requestAnimationFrame(passo); else { animando = false; ultimo = 0; }
   };
 
   const progresso = () => {
@@ -108,12 +130,17 @@
 
   const atualizar = () => {
     alvo = progresso() * (TOTAL - 1);
-    if (!suave) { mostrado = alvo; mostrarQuadro(Math.round(alvo)); return; }
+    if (!suave) { mostrado = alvo; mostrarQuadro(alvo); return; }
     if (!animando) { animando = true; requestAnimationFrame(passo); }
   };
 
-  const mostrarQuadro = (quadro) => {
-    if (quadro !== atual) { atual = quadro; agendar(); }
+  // `pos` is fractional: the whole part picks the frame, the rest drives the fade to the next one.
+  const mostrarQuadro = (pos) => {
+    // Frames moved since the last update; above 0.5 the film counts as scrolling fast.
+    velocidade = posicao < 0 ? 0 : Math.abs(pos - posicao);
+    if (Math.abs(pos - posicao) > 0.005) { posicao = pos; agendar(); }
+    const quadro = Math.round(pos);
+    atual = quadro;
 
     legendas.forEach((el) => {
       // Phone ranges come from data-m-*; if they are missing, scale the desktop ranges.
@@ -136,7 +163,7 @@
     escolherFilme();
     alvo = mostrado = p * (TOTAL - 1);
     ajustarTela();
-    mostrarQuadro(Math.round(mostrado));
+    mostrarQuadro(mostrado);
   };
   // Older Safari (iOS 13 and earlier) only has addListener.
   if (celular.addEventListener) celular.addEventListener('change', trocarFilme);

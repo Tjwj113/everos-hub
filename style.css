@@ -102,10 +102,15 @@ a { color: inherit; }
   border-radius: var(--raio);
   box-shadow: 0 18px 40px -24px rgba(0, 46, 37, 0.45);
   opacity: 0; transform: translateY(18px);
-  transition: opacity .45s ease, transform .45s ease;
+  /* Leaving cards fade out quickly; arriving cards wait for that, so two cards
+     in the same spot never show their text on top of each other. */
+  transition: opacity .18s ease, transform .18s ease;
   pointer-events: none;
 }
-.legenda.visivel { opacity: 1; transform: none; }
+.legenda.visivel {
+  opacity: 1; transform: none;
+  transition: opacity .4s ease .2s, transform .4s ease .2s;
+}
 .legenda--esquerda, .legenda--abertura { left: clamp(20px, 4vw, 56px); }
 .legenda--direita { right: clamp(20px, 4vw, 56px); }
 .legenda--abertura { width: min(460px, 40vw); border-left-color: var(--faisca); }
