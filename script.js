@@ -116,8 +116,11 @@
     if (quadro !== atual) { atual = quadro; agendar(); }
 
     legendas.forEach((el) => {
-      const de = +(vertical ? el.dataset.mDe : el.dataset.de);
-      const ate = +(vertical ? el.dataset.mAte : el.dataset.ate);
+      // Phone ranges come from data-m-*; if they are missing, scale the desktop ranges.
+      const escala = (TOTAL - 1) / (FILMES.desktop.total - 1);
+      const faixa = (m, d) => (vertical ? (m !== undefined ? +m : Math.round(+d * escala)) : +d);
+      const de = faixa(el.dataset.mDe, el.dataset.de);
+      const ate = faixa(el.dataset.mAte, el.dataset.ate);
       el.classList.toggle('visivel', quadro >= de && quadro <= ate);
     });
 
@@ -128,13 +131,16 @@
   };
 
   // Crossing the phone width swaps the film and keeps the same point in the story.
-  celular.addEventListener('change', () => {
+  const trocarFilme = () => {
     const p = progresso();
     escolherFilme();
     alvo = mostrado = p * (TOTAL - 1);
     ajustarTela();
     mostrarQuadro(Math.round(mostrado));
-  });
+  };
+  // Older Safari (iOS 13 and earlier) only has addListener.
+  if (celular.addEventListener) celular.addEventListener('change', trocarFilme);
+  else if (celular.addListener) celular.addListener(trocarFilme);
 
   window.addEventListener('scroll', atualizar, { passive: true });
   window.addEventListener('resize', () => { ajustarTela(); atualizar(); });
