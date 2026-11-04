@@ -253,6 +253,20 @@ a { color: inherit; }
   .projetos__grade { grid-template-columns: minmax(0, 1fr); }
 }
 
+/* Short wide screens (phone held sideways): small captions so the scene stays visible */
+@media (min-width: 700px) and (max-height: 520px) {
+  .legenda, .legenda--abertura {
+    width: min(300px, 36vw);
+    bottom: 12px;
+    padding: 12px 16px 14px;
+  }
+  .legenda__titulo, .legenda--abertura .legenda__titulo { font-size: 20px; margin: 4px 0 0; }
+  .legenda__texto { display: none; }
+  .trilha { top: calc(var(--topo-h) + 10px); font-size: 10px; }
+  .trilha li { padding: 4px 9px; }
+  .filme__seguir { bottom: 12px; }
+}
+
 @media (max-width: 380px) {
   .trilha { gap: 2px; padding: 4px; font-size: 9px; letter-spacing: .02em; }
   .trilha li { padding: 4px 6px; }
