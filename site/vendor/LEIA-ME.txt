@@ -1,0 +1,13 @@
+supabase-js-2.119.0.js
+Biblioteca oficial @supabase/supabase-js 2.119.0 (licença MIT), empacotada em um único arquivo.
+Fica no próprio site para que nenhum código de terceiros mude sem revisão.
+
+SHA-256: f38501e352f9eaccbe1ac551073a5bf5fccd7c0766902baf643a1ecc387451ac
+
+Como atualizar (em uma pasta temporária, fora do site):
+  npm init -y
+  npm install --save-exact --ignore-scripts @supabase/supabase-js@<versão> esbuild@0.25
+  echo "export { createClient } from '@supabase/supabase-js';" > entrada.mjs
+  npx esbuild entrada.mjs --bundle --format=esm --minify --platform=browser --target=es2020 --legal-comments=eof --outfile=supabase-js-<versão>.js
+Depois copie o arquivo para esta pasta, troque o nome nos imports de conteudo.js e admin/admin.js,
+suba o ?v= dos dois <script> e teste o site e o painel.

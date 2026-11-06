@@ -246,6 +246,15 @@ a { color: inherit; }
 }
 .rodape img { height: 26px; width: auto; }
 .rodape p { margin: 0; }
+.rodape__login {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 44px; padding: 8px 12px; border-radius: 6px;
+  color: var(--salvia); font-size: 13px; text-decoration: none;
+}
+.rodape__login:hover {
+  color: var(--floresta); background: var(--papel-2);
+  text-decoration: underline; text-underline-offset: 3px;
+}
 
 /* ---------- Tablet / mobile ---------- */
 @media (max-width: 900px) {
@@ -348,3 +357,6 @@ a { color: inherit; }
   .legenda, .janela, .trilha, .filme__seguir, .topo__nav, .topo__fundo, .topo__menu span { transition: none; }
   .janela:hover { transform: none; }
 }
+
+/* Conteúdo administrável vazio ou oculto. */
+[hidden] { display: none !important; }

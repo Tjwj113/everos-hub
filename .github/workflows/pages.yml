@@ -1,0 +1,41 @@
+# Publica a pasta site/ no GitHub Pages a cada envio para a branch main.
+# Cópia de TESTE: as páginas saem marcadas para o Google não indexar (o site oficial é everosprojetos.com).
+name: Publicar no GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.publicacao.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Marcar a cópia de teste como não indexável
+        run: |
+          for arquivo in site/index.html site/admin/index.html; do
+            grep -q 'name="robots"' "$arquivo" || sed -i 's#<meta charset="UTF-8">#<meta charset="UTF-8">\n  <meta name="robots" content="noindex, nofollow">#' "$arquivo"
+          done
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+      - id: publicacao
+        uses: actions/deploy-pages@v4

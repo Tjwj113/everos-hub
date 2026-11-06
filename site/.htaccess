@@ -1,0 +1,28 @@
+# Cabeçalhos de segurança (Apache: HostGator / Hostinger).
+# Use este arquivo no lugar do .htaccess antigo. Do antigo, aproveite no máximo a regra que força HTTPS.
+# NÃO mantenha o "RewriteRule ^ index.html" nem o "Cache-Control ... s-maxage=604800" do site antigo
+# (veja LEIA-ME-PUBLICACAO.md). Depois de publicar ou atualizar, limpe o cache da CDN no hPanel.
+
+# Bloqueia arquivos ocultos, como o próprio .htaccess.
+<FilesMatch "^\.">
+  Require all denied
+</FilesMatch>
+
+# Garante o tipo correto para os módulos JavaScript.
+AddType text/javascript .js
+
+<IfModule mod_headers.c>
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+  Header always set X-Content-Type-Options "nosniff"
+  # Ninguém pode abrir o site ou o painel dentro de outro site.
+  Header always set X-Frame-Options "DENY"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+  # Páginas sempre conferidas de novo: após uma atualização, ninguém fica com HTML antigo
+  # misturado com scripts novos (os scripts já mudam de endereço pelo ?v=).
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+  # Scripts, estilos e fontes só deste site; dados e imagens só deste site e do Supabase do projeto.
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data: blob: https://nczoxxrubnnwghzytbpf.supabase.co; connect-src 'self' https://nczoxxrubnnwghzytbpf.supabase.co; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'"
+</IfModule>

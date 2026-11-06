@@ -1,0 +1,23 @@
+# Vai para o GitHub só o site (pasta site/) e a configuração do repositório.
+# Todo o resto da pasta do projeto fica de fora: auditoria (prints e e-mails),
+# SQL do banco, documentos internos, vídeos, pacotes .zip e configurações locais.
+/*
+!/site/
+!/.gitignore
+!/.github/
+
+# Arquivos do sistema e de editores
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*~
+.vscode/
+.idea/
+
+# Nunca versionar segredos nem dependências
+.env
+.env.*
+*.pem
+*.key
+node_modules/

@@ -3,17 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="acesso-admin.js?v=2"></script>
   <title>Éveros Projetos · Transformando boas ideias em grandes negócios</title>
   <meta name="description" content="A Éveros transforma ideias em sites, sistemas e plataformas. Conheça como trabalhamos e os projetos que já estão no ar.">
   <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png?v=2">
   <link rel="icon" type="image/png" sizes="128x128" href="img/favicon.png?v=2">
   <link rel="apple-touch-icon" href="img/favicon.png?v=2">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Gloock&family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="fonts/fontes.css?v=1">
   <link rel="preload" as="image" href="frames/desktop/frame_0001.webp" media="(min-width: 700px)">
   <link rel="preload" as="image" href="frames/vertical/frame_0001.webp" media="(max-width: 699px)">
-  <link rel="stylesheet" href="style.css?v=10">
+  <link rel="stylesheet" href="style.css?v=12">
 </head>
 <body>
 
@@ -48,28 +47,28 @@
         </ol>
 
         <div class="legendas">
-          <article class="legenda legenda--abertura" data-de="0" data-ate="50" data-m-de="0" data-m-ate="40">
-            <p class="legenda__rotulo">Éveros Projetos</p>
-            <h1 class="legenda__titulo">Toda boa solução começa com uma ideia.</h1>
-            <p class="legenda__texto">Role a página e veja o caminho que ela faz até virar um negócio.</p>
+          <article class="legenda legenda--abertura" data-slot="abertura" data-de="0" data-ate="50" data-m-de="0" data-m-ate="40">
+            <p class="legenda__rotulo" data-campo="rotulo">Éveros Projetos</p>
+            <h1 class="legenda__titulo" data-campo="titulo">Toda boa solução começa com uma ideia.</h1>
+            <p class="legenda__texto" data-campo="texto">Role a página e veja o caminho que ela faz até virar um negócio.</p>
           </article>
 
-          <article class="legenda legenda--esquerda" data-de="58" data-ate="138" data-m-de="48" data-m-ate="100" data-etapa="1">
-            <p class="legenda__rotulo">Entendendo seu negócio</p>
-            <h2 class="legenda__titulo">Primeiro a gente escuta.</h2>
-            <p class="legenda__texto">Quem é o seu cliente, o que trava a sua rotina e onde está a oportunidade. Só depois disso a primeira linha de código é escrita.</p>
+          <article class="legenda legenda--esquerda" data-slot="entendimento" data-de="58" data-ate="138" data-m-de="48" data-m-ate="100" data-etapa="1">
+            <p class="legenda__rotulo" data-campo="rotulo">Entendendo seu negócio</p>
+            <h2 class="legenda__titulo" data-campo="titulo">Primeiro a gente escuta.</h2>
+            <p class="legenda__texto" data-campo="texto">Quem é o seu cliente, o que trava a sua rotina e onde está a oportunidade. Só depois disso a primeira linha de código é escrita.</p>
           </article>
 
-          <article class="legenda legenda--direita" data-de="146" data-ate="282" data-m-de="108" data-m-ate="176" data-etapa="2">
-            <p class="legenda__rotulo">A sua ideia vira solução</p>
-            <h2 class="legenda__titulo">Design e código no mesmo time.</h2>
-            <p class="legenda__texto">Transformamos o que foi conversado em telas, regras e sistema. Você acompanha cada etapa, sem precisar entender de programação.</p>
+          <article class="legenda legenda--direita" data-slot="solucao" data-de="146" data-ate="282" data-m-de="108" data-m-ate="176" data-etapa="2">
+            <p class="legenda__rotulo" data-campo="rotulo">A sua ideia vira solução</p>
+            <h2 class="legenda__titulo" data-campo="titulo">Design e código no mesmo time.</h2>
+            <p class="legenda__texto" data-campo="texto">Transformamos o que foi conversado em telas, regras e sistema. Você acompanha cada etapa, sem precisar entender de programação.</p>
           </article>
 
-          <article class="legenda legenda--esquerda" data-de="290" data-ate="362" data-m-de="184" data-m-ate="222" data-etapa="3">
-            <p class="legenda__rotulo">Pronto para usar</p>
-            <h2 class="legenda__titulo">No ar, funcionando e seu.</h2>
-            <p class="legenda__texto">Site, sistema ou aplicativo publicado, com a gente por perto depois da entrega.</p>
+          <article class="legenda legenda--esquerda" data-slot="entrega" data-de="290" data-ate="362" data-m-de="184" data-m-ate="222" data-etapa="3">
+            <p class="legenda__rotulo" data-campo="rotulo">Pronto para usar</p>
+            <h2 class="legenda__titulo" data-campo="titulo">No ar, funcionando e seu.</h2>
+            <p class="legenda__texto" data-campo="texto">Site, sistema ou aplicativo publicado, com a gente por perto depois da entrega.</p>
           </article>
         </div>
 
@@ -80,9 +79,9 @@
     <!-- Hub / portfolio -->
     <section class="projetos" id="projetos" aria-labelledby="projetos-titulo">
       <div class="projetos__cabeca">
-        <p class="rotulo">Projetos Éveros</p>
-        <h2 id="projetos-titulo" class="projetos__titulo">Ideias que já viraram negócio.</h2>
-        <p class="projetos__intro">Todos estes projetos estão no ar e em uso. Visite, use ou peça um parecido para o seu negócio.</p>
+        <p class="rotulo" data-texto="projetos_rotulo">Projetos Éveros</p>
+        <h2 id="projetos-titulo" data-texto="projetos_titulo" class="projetos__titulo">Ideias que já viraram negócio.</h2>
+        <p class="projetos__intro" data-texto="projetos_intro">Todos estes projetos estão no ar e em uso. Visite, use ou peça um parecido para o seu negócio.</p>
       </div>
 
       <article class="projeto projeto--destaque">
@@ -176,22 +175,26 @@
 
     <section class="contato" id="contato" aria-labelledby="contato-titulo">
       <img class="contato__marca" src="img/favicon.png?v=2" alt="" width="64" height="64">
-      <h2 id="contato-titulo" class="contato__titulo">Tem uma ideia? Conte para a gente.</h2>
-      <p class="contato__texto">A primeira conversa serve para entender o seu negócio. Sem compromisso.</p>
-      <a class="botao botao--grande" href="https://wa.me/5537991106200?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20%C3%89veros%20e%20tenho%20uma%20ideia." target="_blank" rel="noopener">Falar com a Éveros no WhatsApp</a>
+      <h2 id="contato-titulo" data-texto="contato_titulo" class="contato__titulo">Tem uma ideia? Conte para a gente.</h2>
+      <p class="contato__texto" data-texto="contato_texto">A primeira conversa serve para entender o seu negócio. Sem compromisso.</p>
+      <div class="contato__acoes">
+      <a class="botao botao--grande" href="https://api.whatsapp.com/send/?phone=5537991106200&amp;text=Ol%C3%A1%2C%20equipe%20%C3%89veros!%20%F0%9F%91%8B%E2%9C%A8%0A%0AConheci%20o%20trabalho%20de%20voc%C3%AAs%20pelo%20site%20e%20gostei%20da%20proposta%20de%20transformar%20boas%20ideias%20em%20grandes%20neg%C3%B3cios.%20%F0%9F%92%A1%0ATenho%20uma%20ideia%20para%20o%20meu%20neg%C3%B3cio%20e%20gostaria%20de%20conversar%20sobre%20como%20tir%C3%A1-la%20do%20papel.%0A%0AComo%20podemos%20come%C3%A7ar%3F%20%F0%9F%98%8A" target="_blank" rel="noopener">Falar com a Éveros no WhatsApp</a>
       <ul class="contato__canais">
-        <li><a href="tel:+5537991106200">(37) 99110-6200</a></li>
-        <li><a href="mailto:contatoeveros@gmail.com">contatoeveros@gmail.com</a></li>
+        <li><a href="https://api.whatsapp.com/send/?phone=5537991106200&amp;text=Ol%C3%A1%2C%20equipe%20%C3%89veros!%20%F0%9F%91%8B%E2%9C%A8%0A%0AConheci%20o%20trabalho%20de%20voc%C3%AAs%20pelo%20site%20e%20gostei%20da%20proposta%20de%20transformar%20boas%20ideias%20em%20grandes%20neg%C3%B3cios.%20%F0%9F%92%A1%0ATenho%20uma%20ideia%20para%20o%20meu%20neg%C3%B3cio%20e%20gostaria%20de%20conversar%20sobre%20como%20tir%C3%A1-la%20do%20papel.%0A%0AComo%20podemos%20come%C3%A7ar%3F%20%F0%9F%98%8A" target="_blank" rel="noopener">(37) 99110-6200</a></li>
+        <li><a href="mailto:contatoeveros@gmail.com?body=Ol%C3%A1%2C%20equipe%20%C3%89veros!%20%F0%9F%91%8B%E2%9C%A8%0A%0AConheci%20o%20trabalho%20de%20voc%C3%AAs%20pelo%20site%20e%20gostei%20da%20proposta%20de%20transformar%20boas%20ideias%20em%20grandes%20neg%C3%B3cios.%20%F0%9F%92%A1%0ATenho%20uma%20ideia%20para%20o%20meu%20neg%C3%B3cio%20e%20gostaria%20de%20conversar%20sobre%20como%20tir%C3%A1-la%20do%20papel.%0A%0AComo%20podemos%20come%C3%A7ar%3F%20%F0%9F%98%8A">contatoeveros@gmail.com</a></li>
       </ul>
+      </div>
     </section>
   </main>
 
   <footer class="rodape">
     <img src="img/logo-everos.png" alt="Éveros" width="1194" height="268">
-    <p>Transformando boas ideias em grandes negócios.</p>
+    <p data-texto="rodape_frase">Transformando boas ideias em grandes negócios.</p>
     <p class="rodape__copy">© 2026 Éveros Projetos</p>
+    <a class="rodape__login" href="admin/" aria-label="Login da área administrativa">Login</a>
   </footer>
 
   <script src="script.js?v=7"></script>
+  <script type="module" src="conteudo.js?v=4"></script>
 </body>
 </html>
