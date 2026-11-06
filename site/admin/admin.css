@@ -49,3 +49,4 @@ dialog{max-width:500px;width:calc(100% - 32px);padding:28px;border:1px solid var
 body.menu-aberto{overflow:hidden}
 @keyframes gaveta-entra{from{transform:translateX(100%)}}
 @media(prefers-reduced-motion:reduce){.gaveta{animation:none}}
+.gaveta__fechar{margin-top:auto;align-self:flex-end;display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;padding:0;font-size:22px;line-height:1;color:var(--floresta)}
